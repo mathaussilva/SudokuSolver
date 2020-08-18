@@ -1,5 +1,5 @@
-# GUI.py
-# RUN THIS FILE
+# gui.py
+
 import pygame
 from solver import solve, valid
 import time
@@ -7,7 +7,7 @@ pygame.font.init()
 
 
 class Grid:
-    # To change the starting board change this
+    # Change the starting board change this
     board = [
         [7, 8, 0, 4, 0, 0, 1, 2, 0],
         [6, 0, 0, 0, 7, 5, 0, 0, 9],
@@ -30,9 +30,11 @@ class Grid:
         self.selected = None
 
     def update_model(self):
+        # The board we send to 'solver.py' without temporary values
         self.model = [[self.cubes[i][j].value for j in range(self.cols)] for i in range(self.rows)]
 
     def place(self, val):
+        # Setting the permanent value and checking
         row, col = self.selected
         if self.cubes[row][col].value == 0:
             self.cubes[row][col].set(val)
@@ -47,6 +49,7 @@ class Grid:
                 return False
 
     def sketch(self, val):
+        # Setting the temporary value for the cube object
         row, col = self.selected
         self.cubes[row][col].set_temp(val)
 
@@ -76,11 +79,13 @@ class Grid:
         self.selected = (row, col)
 
     def clear(self):
+        # Clear temporary value with 'DELETE'
         row, col = self.selected
         if self.cubes[row][col].value == 0:
             self.cubes[row][col].set_temp(0)
 
     def click(self, pos):
+        # Return the position of the cube we selected
         """
         :param: pos
         :return: (row, col)
@@ -94,6 +99,7 @@ class Grid:
             return None
 
     def finished(self):
+        # Check for empty squares
         for i in range(self.rows):
             for j in range(self.cols):
                 if self.cubes[i][j].value == 0:
@@ -106,8 +112,9 @@ class Cube:
     cols = 9
 
     def __init__(self, value, row, col, width ,height):
-        self.value = value
-        self.temp = 0
+        # Cube values
+        self.value = value # Permanent value
+        self.temp = 0 # Temporary value on top-left
         self.row = row
         self.col = col
         self.width = width
@@ -115,6 +122,7 @@ class Cube:
         self.selected = False
 
     def draw(self, win):
+        # Draw the red square and input value
         fnt = pygame.font.SysFont("comicsans", 40)
 
         gap = self.width / 9
@@ -152,9 +160,9 @@ def redraw_window(win, board, time, strikes):
 
 
 def format_time(secs):
-    sec = secs%60
-    minute = secs//60
-    hour = minute//60
+    sec = secs % 60
+    minute = secs // 60
+    hour = minute // 60
 
     mat = " " + str(minute) + ":" + str(sec)
     return mat
