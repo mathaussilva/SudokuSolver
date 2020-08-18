@@ -1,3 +1,5 @@
+# solver.py
+
 board = [
     [7,8,0,4,0,0,1,2,0],
     [6,0,0,0,7,5,0,0,9],
@@ -69,13 +71,13 @@ def print_board(pb):
         # Separates board every 3 positions in row
         for j in range(len(pb[0])):
             if j % 3 == 0 and j != 0:
-                print(" | ", end="")
+                print(" | ", end = "")
 
             # \n at last position
             if j == 8:
                 print(pb[i][j])
             else:
-                print(str(pb[i][j]) + " ", end="")
+                print(str(pb[i][j]) + " ", end = "")
 
 
 # Backtrack if position = 0
